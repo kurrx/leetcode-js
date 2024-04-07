@@ -1,7 +1,7 @@
 {
   "name": "leetcode-js",
   "version": "0.0.0",
-  "description": "Personal LeetCode Solutions in JavaScript",
+  "description": "Personal LeetCode Solutions written in JavaScript",
   "license": "MIT",
   "author": {
     "name": "Kurbanali Ruslan",
