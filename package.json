@@ -1,0 +1,19 @@
+{
+  "name": "leetcode-js",
+  "version": "0.0.0",
+  "description": "Personal LeetCode Solutions in JavaScript",
+  "license": "MIT",
+  "author": {
+    "name": "Kurbanali Ruslan",
+    "email": "ruslan@kurr.dev",
+    "url": "https://github.com/kurrx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kurrx/leetcode-js.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
