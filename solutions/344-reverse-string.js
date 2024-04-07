@@ -7,11 +7,7 @@
  * @param {string[]} s
  * @return {void} Do not return anything, modify s in-place instead.
  */
-function reverseString1(s) {
-  // s.reverse()
-
-  // OR
-
+function reverseString(s) {
   let left = 0,
     right = s.length - 1
 
