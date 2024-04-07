@@ -1,6 +1,9 @@
 /**
  * https://leetcode.com/problems/reverse-string
  *
+ * TC: O(n)
+ * SC: O(1)
+ *
  * @param {string[]} s
  * @return {void} Do not return anything, modify s in-place instead.
  */
