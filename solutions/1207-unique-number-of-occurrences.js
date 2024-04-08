@@ -12,12 +12,6 @@ function uniqueOccurrences(arr) {
   for (const num of arr) {
     counter.set(num, (counter.get(num) || 0) + 1)
   }
-  const uniqueCounts = new Set()
-  for (const count of counter.values()) {
-    if (uniqueCounts.has(count)) {
-      return false
-    }
-    uniqueCounts.add(count)
-  }
-  return true
+  const uniqueCounts = new Set(counter.values())
+  return uniqueCounts.size === counter.size
 }
