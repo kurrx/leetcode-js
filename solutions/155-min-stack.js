@@ -3,8 +3,7 @@
 class MinStack {
   constructor() {
     this.stack = []
-    this.minStack = []
-    this.n = 0
+    this.min = []
   }
 
   /**
@@ -15,8 +14,12 @@ class MinStack {
    */
   push(val) {
     this.stack.push(val)
-    this.minStack.push(Math.min(val, this.minStack[this.n - 1] ?? Infinity))
-    this.n++
+    const n = this.min.length
+    if (!n || val < this.min[n - 1].val) {
+      this.min.push({ val, count: 1 })
+    } else if (val === this.min[n - 1].val) {
+      this.min[n - 1].count++
+    }
   }
 
   /**
@@ -24,9 +27,14 @@ class MinStack {
    * SC: O(1)
    */
   pop() {
-    this.stack.pop()
-    this.minStack.pop()
-    this.n--
+    const minTop = this.min[this.min.length - 1]
+    if (minTop.val === this.stack.pop()) {
+      if (minTop.count === 1) {
+        this.min.pop()
+      } else {
+        minTop.count--
+      }
+    }
   }
 
   /**
@@ -36,7 +44,7 @@ class MinStack {
    * @return {number}
    */
   top() {
-    return this.stack[this.n - 1]
+    return this.stack[this.stack.length - 1]
   }
 
   /**
@@ -46,6 +54,6 @@ class MinStack {
    * @return {number}
    */
   getMin() {
-    return this.minStack[this.n - 1]
+    return this.min[this.min.length - 1].val
   }
 }
