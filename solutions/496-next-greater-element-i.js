@@ -2,7 +2,7 @@
  * https://leetcode.com/problems/next-greater-element-i
  *
  * TC: O(n)
- * SC: O(1)
+ * SC: O(n)
  *
  * @param {number[]} numbers1
  * @param {number[]} numbers2
