@@ -1,7 +1,7 @@
 /**
  * https://leetcode.com/problems/number-of-visible-people-in-a-queue
  *
- * TC: O(1)
+ * TC: O(n)
  * SC: O(n)
  *
  * @param {number[]} heights
