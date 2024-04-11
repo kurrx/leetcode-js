@@ -1,7 +1,7 @@
 /**
  * https://leetcode.com/problems/sum-of-subarray-ranges
  *
- * TC: O(1)
+ * TC: O(n)
  * SC: O(n)
  *
  * @param {number[]} arr
