@@ -15,5 +15,8 @@
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.12.7"
   }
 }
