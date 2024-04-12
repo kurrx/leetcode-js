@@ -13,6 +13,9 @@ function maxAncestorDiff(root) {
 
 /**
  * @param {TreeNode} root
+ * @param {number} min
+ * @param {number} max
+ * @returns {number}
  */
 function dfs(root, min, max) {
   if (!root) return max - min
