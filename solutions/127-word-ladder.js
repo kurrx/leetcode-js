@@ -2,7 +2,7 @@
  * https://leetcode.com/problems/word-ladder
  *
  * TC: O(n * k^2)
- * SC: O(k^2)
+ * SC: O(n)
  *
  * @param {string} beginWord
  * @param {string} endWord
