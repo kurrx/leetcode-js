@@ -1,7 +1,7 @@
 /**
  * https://leetcode.com/problems/search-in-a-binary-search-tree
  *
- * TC: O(n)
+ * TC: O(log(n))
  * SC: O(1)
  *
  * @param {TreeNode} root
