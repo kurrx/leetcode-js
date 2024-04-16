@@ -12,7 +12,7 @@ class Heap {
     this.heap = inPlace ? arr : [...arr]
     // Uncomment for MaxHeap
     // this.heap = arr.map(x => -x)
-    for (let i = 0; i <= last; i++) {
+    for (let i = last; i >= 0; i--) {
       this._percolateDown(i)
     }
   }
