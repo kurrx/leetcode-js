@@ -2,7 +2,7 @@
  * https://leetcode.com/problems/kth-largest-element-in-an-array
  *
  * TC: O(n*log(k))
- * SC: O(n)
+ * SC: O(k)
  *
  * @param {number[]} numbers
  * @param {number} k
