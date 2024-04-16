@@ -1,18 +1,15 @@
 /**
- * Min Heap Implementation
- *
- * @description For max heap `push`, `pop` methods must be negative
+ * Min/Max Heap Implementation
  */
 class Heap {
   /**
    * @param {number[]} arr
+   * @param {boolean} maxHeap
    */
-  constructor(arr, inPlace = false) {
-    const last = Math.floor(arr.length / 2 - 1)
-    this.heap = inPlace ? arr : [...arr]
-    // Uncomment for MaxHeap
-    // this.heap = arr.map(x => -x)
-    for (let i = last; i >= 0; i--) {
+  constructor(arr, maxHeap = false) {
+    this._maxHeap = maxHeap
+    this._heap = arr.map(x => (this._maxHeap ? -x : x))
+    for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
       this._percolateDown(i)
     }
   }
@@ -24,14 +21,12 @@ class Heap {
    * @returns {void}
    */
   push(value) {
-    this.heap.push(value)
-    // Uncomment for MaxHeap
-    // this.heap.push(-value)
-    let curr = this.heap.length - 1
+    this._heap.push(this._maxHeap ? -value : value)
+    let curr = this._heap.length - 1
     while (curr > 0) {
-      let parent = (curr - 1) / 2
-      if (this.heap[curr] < this.heap[parent]) {
-        this._swapAt(curr, parent)
+      const parent = (curr - 1) / 2
+      if (this._heap[curr] < this._heap[parent]) {
+        this._swap(curr, parent)
         curr = parent
       } else {
         break
@@ -45,12 +40,10 @@ class Heap {
    * @returns {void}
    */
   pop() {
-    this._swapAt(0, this.heap.length - 1)
-    const removedValue = this.heap.pop()
+    this._swap(0, this._heap.length - 1)
+    const removedValue = this._heap.pop()
     this._percolateDown(0)
-    return removedValue
-    // Uncomment for MaxHeap
-    // return -removedValue
+    return this._maxHeap ? -removedValue : removedValue
   }
 
   /**
@@ -61,17 +54,17 @@ class Heap {
    * @returns {void}
    */
   _percolateDown(index) {
-    const n = this.heap.length
+    const n = this._heap.length
     let curr = index
     while (2 * curr + 1 < n) {
       const leftIndex = 2 * curr + 1,
         rightIndex = 2 * curr + 2,
         minIndex =
-          rightIndex < n && this.heap[rightIndex] < this.heap[leftIndex]
+          rightIndex < n && this._heap[rightIndex] < this._heap[leftIndex]
             ? rightIndex
             : leftIndex
-      if (this.heap[minIndex] < this.heap[curr]) {
-        this._swapAt(minIndex, curr)
+      if (this._heap[minIndex] < this._heap[curr]) {
+        this._swap(minIndex, curr)
         curr = minIndex
       } else {
         break
@@ -87,9 +80,9 @@ class Heap {
    * @param {number} index2
    * @returns {void}
    */
-  _swapAt(index1, index2) {
-    const temp = this.heap[index1]
-    this.heap[index1] = this.heap[index2]
-    this.heap[index2] = temp
+  _swap(index1, index2) {
+    const temp = this._heap[index1]
+    this._heap[index1] = this._heap[index2]
+    this._heap[index2] = temp
   }
 }
