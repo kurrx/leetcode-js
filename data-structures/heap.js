@@ -10,6 +10,8 @@ class Heap {
   constructor(arr, inPlace = false) {
     const last = Math.floor(arr.length / 2 - 1)
     this.heap = inPlace ? arr : [...arr]
+    // Uncomment for MaxHeap
+    // this.heap = arr.map(x => -x)
     for (let i = 0; i <= last; i++) {
       this._percolateDown(i)
     }
@@ -23,6 +25,8 @@ class Heap {
    */
   push(value) {
     this.heap.push(value)
+    // Uncomment for MaxHeap
+    // this.heap.push(-value)
     let curr = this.heap.length - 1
     while (curr > 0) {
       let parent = (curr - 1) / 2
@@ -45,6 +49,8 @@ class Heap {
     const removedValue = this.heap.pop()
     this._percolateDown(0)
     return removedValue
+    // Uncomment for MaxHeap
+    // return -removedValue
   }
 
   /**
