@@ -10,7 +10,7 @@ class Heap {
     this._maxHeap = maxHeap
     this._heap = arr.map(x => (this._maxHeap ? -x : x))
     for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
-      this._percolateDown(i)
+      this._heapifyDown(i)
     }
   }
 
@@ -24,7 +24,7 @@ class Heap {
     this._heap.push(this._maxHeap ? -value : value)
     let curr = this._heap.length - 1
     while (curr > 0) {
-      const parent = (curr - 1) / 2
+      const parent = Math.floor((curr - 1) / 2)
       if (this._heap[curr] < this._heap[parent]) {
         this._swap(curr, parent)
         curr = parent
@@ -42,7 +42,7 @@ class Heap {
   pop() {
     this._swap(0, this._heap.length - 1)
     const removedValue = this._heap.pop()
-    this._percolateDown(0)
+    this._heapifyDown(0)
     return this._maxHeap ? -removedValue : removedValue
   }
 
@@ -53,7 +53,7 @@ class Heap {
    * @param {number} index
    * @returns {void}
    */
-  _percolateDown(index) {
+  _heapifyDown(index) {
     const n = this._heap.length
     let curr = index
     while (2 * curr + 1 < n) {
