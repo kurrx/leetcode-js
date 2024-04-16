@@ -8,7 +8,7 @@ class Heap {
    * @param {T[]} arr
    * @param {(a: T, b: T) => number} comparator
    */
-  constructor(arr, comparator = (a, b) => a - b) {
+  constructor(arr = [], comparator = (a, b) => a - b) {
     this.heap = [...arr]
     this.comparator = comparator
     for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
