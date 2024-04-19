@@ -10,13 +10,15 @@
  */
 function searchInsert(numbers, target) {
   let left = 0,
-    right = numbers.length
-  while (left < right) {
+    right = numbers.length - 1
+  while (left <= right) {
     const mid = Math.floor((left + right) / 2)
-    if (target > numbers[mid]) {
-      left = mid + 1
+    if (target === numbers[mid]) {
+      return mid
+    } else if (target < numbers[mid]) {
+      right = mid - 1
     } else {
-      right = mid
+      left = mid + 1
     }
   }
   return left
