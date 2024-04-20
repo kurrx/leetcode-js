@@ -1,7 +1,7 @@
 /**
  * https://leetcode.com/problems/search-in-rotated-sorted-array
  *
- * TC: O(k+log(n))
+ * TC: O(log(n))
  * SC: O(1)
  *
  * @param {number[]} nums
