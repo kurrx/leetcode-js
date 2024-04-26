@@ -8,29 +8,48 @@
  * @return {boolean}
  */
 function isPalindrome(head) {
+  if (!head || !head.next) return true
+  const firstHalfEnd = endOfFirstHalf(head)
+  const secondHalf = reverseLinkedList(firstHalfEnd.next)
+  let p1 = head,
+    p2 = secondHalf,
+    palindrome = true
+  while (p2 && palindrome) {
+    if (p1.val !== p2.val) palindrome = false
+    p1 = p1.next
+    p2 = p2.next
+  }
+  firstHalfEnd.next = reverseLinkedList(secondHalf)
+  return palindrome
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+function endOfFirstHalf(head) {
   let slow = head,
     fast = head
-  while (fast && fast.next) {
+  while (fast.next && fast.next.next) {
     slow = slow.next
     fast = fast.next.next
   }
+  return slow
+}
 
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+function reverseLinkedList(head) {
   let prev = null,
-    curr = slow
+    curr = head,
+    next
   while (curr) {
-    const next = curr.next
+    next = curr.next
     curr.next = prev
     prev = curr
     curr = next
   }
-
-  while (head && prev) {
-    if (head.val !== prev.val) {
-      return false
-    }
-    head = head.next
-    prev = prev.next
-  }
-
-  return true
+  return prev
 }
