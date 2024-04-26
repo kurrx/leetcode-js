@@ -1,26 +1,18 @@
 // https://leetcode.com/problems/online-stock-span
 
 class StockSpanner {
-  constructor() {
-    this.stack = []
-    this.day = 0
-  }
+  stack = []
 
   /**
-   * TC: O(1)
-   * SC: O(n)
-   *
    * @param {number} price
+   * @return {number}
    */
   next(price) {
-    let days = 1
-    while (
-      this.stack.length &&
-      this.stack[this.stack.length - 1].price <= price
-    ) {
-      days += this.stack.pop().days
+    let answer = 1
+    while (this.stack.length && price >= this.stack.at(-1)[0]) {
+      answer += this.stack.pop()[1]
     }
-    this.stack.push({ price, days })
-    return days
+    this.stack.push([price, answer])
+    return answer
   }
 }
