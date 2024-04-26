@@ -8,17 +8,17 @@
  * @param {number} k
  * @return {number[]}
  */
-function mostCompetitive(numbers, k) {
-  const n = numbers.length
-  let canDrop = n - k
+function mostCompetitive(nums, k) {
+  const n = nums.length
+  if (n === k) return nums
   const stack = []
+  let canDrop = n - k
   for (let i = 0; i < n; i++) {
-    const num = numbers[i]
-    while (stack.length && canDrop && stack[stack.length - 1] > num) {
+    while (stack.length && canDrop && stack.at(-1) > nums[i]) {
       stack.pop()
       canDrop--
     }
-    stack.push(num)
+    stack.push(nums[i])
   }
   while (stack.length > k) {
     stack.pop()
