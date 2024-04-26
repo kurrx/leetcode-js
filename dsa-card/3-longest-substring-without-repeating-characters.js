@@ -9,15 +9,17 @@
  */
 function lengthOfLongestSubstring(s) {
   const n = s.length
-  const lastSeenAt = new Map()
-  let maxLength = 0
-  for (let left = 0, right = 0; right < n; right++) {
-    const rightChar = s.charAt(right)
-    if (lastSeenAt.has(rightChar)) {
-      left = Math.max(left, lastSeenAt.get(rightChar))
+  const map = new Map()
+  let max = 0,
+    left = 0,
+    lastIdx
+  for (let right = 0; right < n; right++) {
+    lastIdx = map.get(s[right]) ?? -1
+    if (lastIdx !== -1 && lastIdx >= left && lastIdx < right) {
+      left = lastIdx + 1
     }
-    maxLength = Math.max(maxLength, right - left + 1)
-    lastSeenAt.set(rightChar, right + 1)
+    max = Math.max(max, right - left + 1)
+    map.set(s[right], right)
   }
-  return maxLength
+  return max
 }
