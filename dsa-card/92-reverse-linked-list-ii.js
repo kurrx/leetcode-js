@@ -10,35 +10,31 @@
  * @return {ListNode}
  */
 function reverseBetween(head, left, right) {
-  if (left === right || !head || !head.next) {
-    return head
-  }
+  if (left === right) return head
   const sentinel = new ListNode(-1, head)
-  let curr = sentinel,
-    position = 0,
-    start = null,
-    tail = null,
-    prev = null
-  while (position <= right) {
-    if (position === left - 1) {
-      start = curr
-      tail = curr.next
-    }
-    if (position === right) {
-      tail.next = curr.next
-    }
-    if (position >= left) {
-      const nextNode = curr.next
-      if (prev) {
-        curr.next = prev
+  let prev = sentinel,
+    curr = sentinel.next,
+    i = 1,
+    next,
+    savedPrev,
+    savedCurr
+  while (i <= right) {
+    if (i >= left) {
+      if (i === left) {
+        savedPrev = prev
+        savedCurr = curr
       }
+      next = curr.next
+      curr.next = prev
       prev = curr
-      curr = nextNode
+      curr = next
     } else {
+      prev = curr
       curr = curr.next
     }
-    position++
+    i++
   }
-  start.next = prev
+  savedPrev.next = prev
+  savedCurr.next = curr
   return sentinel.next
 }
