@@ -9,22 +9,20 @@
  * @return {ListNode}
  */
 function swapNodes(head, k) {
-  let length = 0
-  let curr = head,
-    left = null,
-    right = head
-  while (curr) {
-    length++
-    if (left) right = right.next
-    if (length === k) left = curr
-    curr = curr.next
+  let i = 1,
+    fast = head,
+    slow = head
+  while (i < k) {
+    fast = fast.next
+    i++
   }
-
-  if (left && right) {
-    const temp = left.val
-    left.val = right.val
-    right.val = temp
+  const begin = fast
+  while (fast.next) {
+    slow = slow.next
+    fast = fast.next
   }
-
+  const temp = begin.val
+  begin.val = slow.val
+  slow.val = temp
   return head
 }
