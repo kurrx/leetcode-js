@@ -9,14 +9,14 @@
  */
 function finalPrices(prices) {
   const n = prices.length,
-    discounts = new Array(n),
-    stack = [0]
-  for (let i = n - 1; i >= 0; i--) {
-    while (stack.length && stack[stack.length - 1] > prices[i]) {
-      stack.pop()
+    stack = []
+  const answer = new Array(n)
+  for (let i = 0; i <= n; i++) {
+    while (stack.length && (i === n || prices[stack.at(-1)] >= prices[i])) {
+      const j = stack.pop()
+      answer[j] = prices[j] - (prices[i] ?? 0)
     }
-    discounts[i] = prices[i] - stack[stack.length - 1]
-    stack.push(prices[i])
+    stack.push(i)
   }
-  return discounts
+  return answer
 }
