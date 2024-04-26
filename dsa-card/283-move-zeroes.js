@@ -7,17 +7,14 @@
  * @param {number[]} numbers
  * @return {void} Do not return anything, modify numbers in-place instead.
  */
-function moveZeroes(numbers) {
-  const n = numbers.length
-
-  let nonZeroIndex = 0
+function moveZeroes(nums) {
+  const n = nums.length
+  let insertIndex = 0
   for (let i = 0; i < n; i++) {
-    if (numbers[i] !== 0) {
-      numbers[nonZeroIndex++] = numbers[i]
-    }
+    if (nums[i] === 0) continue
+    nums[insertIndex++] = nums[i]
   }
-
-  while (nonZeroIndex < n) {
-    numbers[nonZeroIndex++] = 0
+  for (let i = insertIndex; i < n; i++) {
+    nums[i] = 0
   }
 }
