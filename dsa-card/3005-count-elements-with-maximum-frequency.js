@@ -7,19 +7,21 @@
  * @param {number[]} numbers
  * @return {number}
  */
-function maxFrequencyElements(numbers) {
-  let maxFrequency = 0,
-    totalFrequency = 0
-  const frequencyCounter = new Map()
-  for (const num of numbers) {
-    const frequency = (frequencyCounter.get(num) || 0) + 1
-    frequencyCounter.set(num, frequency)
-    if (frequency > maxFrequency) {
-      maxFrequency = frequency
-      totalFrequency = frequency
-    } else if (frequency === maxFrequency) {
-      totalFrequency += frequency
+function maxFrequencyElements(nums) {
+  const n = nums.length
+  const map = new Map()
+  let max = 0,
+    answer = 0,
+    count
+  for (let i = 0; i < n; i++) {
+    count = (map.get(nums[i]) ?? 0) + 1
+    map.set(nums[i], count)
+    if (count > max) {
+      max = count
+      answer = max
+    } else if (count === max) {
+      answer += max
     }
   }
-  return totalFrequency
+  return answer
 }
