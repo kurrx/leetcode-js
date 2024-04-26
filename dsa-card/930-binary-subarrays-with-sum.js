@@ -8,14 +8,22 @@
  * @param {number} goal
  * @return {number}
  */
-function numSubarraysWithSum(numbers, goal) {
-  const counter = new Map([[0, 1]])
-  let currentSum = 0,
-    totalCount = 0
-  for (const num of numbers) {
-    currentSum += num
-    totalCount += counter.get(currentSum - goal) || 0
-    counter.set(currentSum, (counter.get(currentSum) || 0) + 1)
+function numSubarraysWithSum(nums, goal) {
+  const n = nums.length
+  let left = 0,
+    prefixZeros = 0,
+    count = 0,
+    sum = 0
+  for (let right = 0; right < n; right++) {
+    sum += nums[right]
+    while (left < right && (!nums[left] || sum > goal)) {
+      if (nums[left]) prefixZeros = 0
+      else prefixZeros++
+      sum -= nums[left++]
+    }
+    if (sum === goal) {
+      count += 1 + prefixZeros
+    }
   }
-  return totalCount
+  return count
 }
