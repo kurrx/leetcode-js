@@ -8,42 +8,41 @@
  * @return {ListNode}
  */
 function reverseEvenLengthGroups(head) {
-  if (!head || !head.next) {
-    return head
-  }
-
-  let group = 2,
-    curr = head.next,
-    prev = head
+  if (!head || !head.next) return head
+  let group = 1,
+    seen = 0,
+    prev = null,
+    curr = head
   while (curr) {
-    let savedCurr = curr,
-      savedPrev = prev
-
-    let count = 1
-    while (curr && count <= group) {
+    let tail = curr,
+      tailPrev = null
+    while (tail && seen < group) {
+      tailPrev = tail
+      tail = tail.next
+      seen++
+    }
+    if (seen % 2 === 0) {
+      prev.next = reverseList(curr, seen)
       prev = curr
-      curr = curr.next
-      count++
+    } else {
+      prev = tailPrev
     }
-    count--
-
-    const sequenceLength = Math.min(count, group)
-    if (sequenceLength % 2 === 0) {
-      savedPrev.next = reverse(savedCurr, sequenceLength)
-      prev = savedCurr
-    }
+    curr = tail
+    seen = 0
     group++
   }
-
   return head
 }
 
-function reverse(head, count) {
-  if (!head || !head.next || count === 0) {
-    return head
-  }
-  let curr = head,
-    prev = null,
+/**
+ * @param {ListNode} head
+ * @param {number} count
+ * @return {ListNode}
+ */
+function reverseList(head, count) {
+  if (!head || !head.next || !count) return head
+  let prev = null,
+    curr = head,
     next = null
   while (curr && count) {
     next = curr.next
