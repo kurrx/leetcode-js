@@ -8,26 +8,20 @@
  * @return {string}
  */
 function predictPartyVictory(senate) {
-  const n = senate.length
-  const dQueue = [],
-    rQueue = []
-  for (let i = 0; i < n; i++) {
-    if (senate[i] === 'D') {
-      dQueue.push(i)
+  const stack = [],
+    queue = senate.split(''),
+    counter = { R: 0, D: 0 }
+  for (const senator of queue) {
+    counter[senator]++
+  }
+  while (counter.D && counter.R) {
+    const senator = queue.shift()
+    if (!stack.length || stack.at(-1) === senator) {
+      stack.push(senator)
     } else {
-      rQueue.push(i)
+      counter[senator]--
+      queue.push(stack.pop())
     }
   }
-
-  while (dQueue.length && rQueue.length) {
-    const dTurn = dQueue.shift(),
-      rTurn = rQueue.shift()
-    if (dTurn < rTurn) {
-      dQueue.push(dTurn + n)
-    } else {
-      rQueue.push(rTurn + n)
-    }
-  }
-
-  return rQueue.length === 0 ? 'Dire' : 'Radiant'
+  return counter.D ? 'Dire' : 'Radiant'
 }
