@@ -8,20 +8,20 @@
  * @param {number[]} numbers
  * @return {number}
  */
-function minSubArrayLen(target, numbers) {
-  const n = numbers.length
-  let left = 0,
-    min = Infinity,
-    currentSum = 0
-
-  for (let right = 0; right < n; right++) {
-    currentSum += numbers[right]
-
-    while (currentSum >= target) {
-      min = Math.min(min, right - left + 1)
-      currentSum -= numbers[left++]
+function minSubArrayLen(target, nums) {
+  const n = nums.length
+  let min = Infinity,
+    currSum = 0,
+    left = 0,
+    right = 0
+  while (left < n || right < n) {
+    if (currSum >= target) {
+      min = Math.min(min, right - left)
+      currSum -= nums[left++]
+    } else {
+      if (right < n) currSum += nums[right++]
+      else break
     }
   }
-
   return min === Infinity ? 0 : min
 }
