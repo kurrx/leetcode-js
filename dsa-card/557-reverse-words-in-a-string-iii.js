@@ -8,22 +8,17 @@
  * @return {string}
  */
 function reverseWords(s) {
-  const n = s.length
-  const chArray = s.split('')
-  let lastSpaceIndex = -1
-
-  for (let strIndex = 0; strIndex <= n; strIndex++) {
-    if (strIndex !== n && chArray[strIndex] !== ' ') continue
-
-    let left = lastSpaceIndex + 1,
-      right = strIndex - 1
+  const words = s.split(' ').map(v => v.split(''))
+  let left, right, temp
+  for (let i = 0; i < words.length; i++) {
+    left = 0
+    right = words[i].length - 1
     while (left < right) {
-      const temp = chArray[left]
-      chArray[left++] = chArray[right]
-      chArray[right--] = temp
+      temp = words[i][left]
+      words[i][left++] = words[i][right]
+      words[i][right--] = temp
     }
-    lastSpaceIndex = strIndex
+    words[i] = words[i].join('')
   }
-
-  return chArray.join('')
+  return words.join(' ')
 }
