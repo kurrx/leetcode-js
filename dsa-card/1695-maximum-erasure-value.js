@@ -7,24 +7,20 @@
  * @param {number[]} numbers
  * @return {number}
  */
-function maximumUniqueSubarray(numbers) {
-  const n = numbers.length
-  const seenNumbers = new Set()
-  let left = 0,
-    maxSum = 0,
-    currentSum = 0
+function maximumUniqueSubarray(nums) {
+  const n = nums.length
+  const set = new Set()
+  let max = 0,
+    sum = 0,
+    left = 0
   for (let right = 0; right < n; right++) {
-    const rightNum = numbers[right]
-    currentSum += rightNum
-    while (seenNumbers.has(rightNum)) {
-      const leftNum = numbers[left++]
-      currentSum -= leftNum
-      seenNumbers.delete(leftNum)
+    sum += nums[right]
+    while (set.has(nums[right])) {
+      sum -= nums[left]
+      set.delete(nums[left++])
     }
-    seenNumbers.add(rightNum)
-    if (currentSum > maxSum) {
-      maxSum = currentSum
-    }
+    set.add(nums[right])
+    max = Math.max(max, sum)
   }
-  return maxSum
+  return max
 }
