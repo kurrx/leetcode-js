@@ -10,45 +10,26 @@ const A_CODE = 'a'.charCodeAt(0)
  * @return {boolean}
  */
 function checkInclusion(s1, s2) {
-  const m = s1.length
-  const n = s2.length
-  if (n < m) return false
-
-  const s1Map = Array(26).fill(0)
-  const s2Map = Array(26).fill(0)
-  for (let i = 0; i < m; i++) {
-    s1Map[s1.charCodeAt(i) - A_CODE]++
-    s2Map[s2.charCodeAt(i) - A_CODE]++
+  const n = s1.length,
+    m = s2.length
+  const counter = new Map()
+  for (let i = 0; i < n; i++) {
+    counter.set(s1[i], (counter.get(s1[i]) ?? 0) + 1)
   }
-
-  let count = 0
-  for (let i = 0; i < 26; i++) {
-    if (s1Map[i] === s2Map[i]) {
-      count++
-    }
+  let count
+  for (let i = 0; i < n; i++) {
+    count = (counter.get(s2[i]) ?? 0) - 1
+    if (count) counter.set(s2[i], count)
+    else counter.delete(s2[i])
   }
-
-  for (let right = m; right < n; right++) {
-    if (count === 26) {
-      return true
-    }
-
-    const rightIndex = s2.charCodeAt(right) - A_CODE
-    s2Map[rightIndex]++
-    if (s1Map[rightIndex] === s2Map[rightIndex]) {
-      count++
-    } else if (s1Map[rightIndex] + 1 === s2Map[rightIndex]) {
-      count--
-    }
-
-    const leftIndex = s2.charCodeAt(right - m) - A_CODE
-    s2Map[leftIndex]--
-    if (s1Map[leftIndex] === s2Map[leftIndex]) {
-      count++
-    } else if (s1Map[leftIndex] - 1 === s2Map[leftIndex]) {
-      count--
-    }
+  for (let left = 0, right = n; right < m; left++, right++) {
+    if (counter.size === 0) return true
+    count = (counter.get(s2[left]) ?? 0) + 1
+    if (count) counter.set(s2[left], count)
+    else counter.delete(s2[left])
+    count = (counter.get(s2[right]) ?? 0) - 1
+    if (count) counter.set(s2[right], count)
+    else counter.delete(s2[right])
   }
-
-  return count === 26
+  return counter.size === 0
 }
