@@ -8,20 +8,38 @@
  * @return {number}
  */
 function maxAncestorDiff(root) {
-  return dfs(root, root.val, root.val)
+  return traverse(root)[0]
 }
 
 /**
  * @param {TreeNode} root
- * @param {number} min
- * @param {number} max
- * @returns {number}
+ * @returns {[number, number, number]}
  */
-function dfs(root, min, max) {
-  if (!root) return max - min
-  min = Math.min(min, root.val)
-  max = Math.max(max, root.val)
-  const left = dfs(root.left, min, max),
-    right = dfs(root.right, min, max)
-  return Math.max(left, right)
+function traverse(root) {
+  let maxDiff = 0,
+    min = root.val,
+    max = root.val
+  if (root.left) {
+    const [leftMaxDiff, leftMin, leftMax] = traverse(root.left)
+    maxDiff = Math.max(
+      maxDiff,
+      leftMaxDiff,
+      Math.abs(root.val - leftMin),
+      Math.abs(root.val - leftMax),
+    )
+    min = Math.min(min, leftMin)
+    max = Math.max(max, leftMax)
+  }
+  if (root.right) {
+    const [rightMaxDiff, rightMin, rightMax] = traverse(root.right)
+    maxDiff = Math.max(
+      maxDiff,
+      rightMaxDiff,
+      Math.abs(root.val - rightMin),
+      Math.abs(root.val - rightMax),
+    )
+    min = Math.min(min, rightMin)
+    max = Math.max(max, rightMax)
+  }
+  return [maxDiff, min, max]
 }
