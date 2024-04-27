@@ -7,20 +7,24 @@
  * @param {number[]} arr
  * @return {number}
  */
-function subArrayRanges(arr) {
-  const n = arr.length,
+function subArrayRanges(nums) {
+  const n = nums.length,
     min = [],
     max = []
-  let sum = 0
+  let sum = 0,
+    j,
+    contribution
   for (let i = 0; i <= n; i++) {
-    while (min.length && (i === n || arr[min.at(-1)] >= arr[i])) {
-      const mid = min.pop()
-      sum -= arr[mid] * (i - mid) * (mid - (min.at(-1) ?? -1))
+    while (min.length && (i === n || nums[min.at(-1)] > nums[i])) {
+      j = min.pop()
+      contribution = nums[j] * (i - j) * (j - (min.at(-1) ?? -1))
+      sum -= contribution
     }
     min.push(i)
-    while (max.length && (i === n || arr[max.at(-1)] <= arr[i])) {
-      const mid = max.pop()
-      sum += arr[mid] * (i - mid) * (mid - (max.at(-1) ?? -1))
+    while (max.length && (i === n || nums[max.at(-1)] < nums[i])) {
+      j = max.pop()
+      contribution = nums[j] * (i - j) * (j - (max.at(-1) ?? -1))
+      sum += contribution
     }
     max.push(i)
   }
