@@ -9,21 +9,18 @@
  */
 function canSeePersonsCount(heights) {
   const n = heights.length,
-    stack = [],
-    answer = new Array(n)
-  answer[n - 1] = 0
-  for (let i = n - 1; i >= 1; i--) {
-    while (stack.length && heights[stack.at(-1)] < heights[i]) {
+    answer = new Array(n),
+    stack = []
+  let removed
+  for (let i = n - 1; i >= 0; i--) {
+    removed = 0
+    while (stack.length && stack.at(-1) < heights[i]) {
       stack.pop()
+      removed++
     }
-    stack.push(i)
-    answer[i - 1] = stack.length
-    for (let j = stack.length - 1; j >= 0; j--) {
-      if (heights[stack[j]] >= heights[i - 1]) {
-        answer[i - 1] = stack.length - j
-        break
-      }
-    }
+    if (stack.length) removed++
+    answer[i] = removed
+    stack.push(heights[i])
   }
   return answer
 }
