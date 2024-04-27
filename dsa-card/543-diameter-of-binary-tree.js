@@ -8,19 +8,26 @@
  * @return {number}
  */
 function diameterOfBinaryTree(root) {
-  return maxDiameter(root).max
+  return traverse(root)[0]
 }
 
 /**
  * @param {TreeNode} root
- * @returns {{ path:number; max:number }}
+ * @returns {[number, number]}
  */
-function maxDiameter(root) {
-  if (!root) return { path: 0, max: 0 }
-  if (!root.left && !root.right) return { path: 1, max: 0 }
-  const left = maxDiameter(root.left)
-  const right = maxDiameter(root.right)
-  const path = Math.max(left.path, right.path) + 1
-  const max = Math.max(left.path + right.path, left.max, right.max)
-  return { path, max }
+function traverse(root) {
+  let max = 0,
+    left = 0,
+    right = 0
+  if (root.left) {
+    const [maxLeft, height] = traverse(root.left)
+    left = height
+    max = Math.max(max, maxLeft)
+  }
+  if (root.right) {
+    const [maxRight, height] = traverse(root.right)
+    right = height
+    max = Math.max(max, maxRight)
+  }
+  return [Math.max(max, left + right), Math.max(left, right) + 1]
 }
