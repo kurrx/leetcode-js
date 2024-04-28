@@ -26,4 +26,4 @@ Folder `algorithms` contains:
 
 ### LeetCode DSA Card
 
-Folder `dsa-card` contains all problems and their solution from [`Data Structures and Algorithms`](https://leetcode.com/explore/featured/card/leetcodes-interview-crash-course-data-structures-and-algorithms) card on LeetCode.
+Folder `dsa-card` contains all problems from [`Data Structures and Algorithms`](https://leetcode.com/explore/featured/card/leetcodes-interview-crash-course-data-structures-and-algorithms) card on LeetCode.
