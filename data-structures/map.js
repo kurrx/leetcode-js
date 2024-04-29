@@ -19,7 +19,7 @@ const a = map.get('a') // 4
 const hasB = map.has('b') // true
 
 // Delete element - O(1)
-map.delete('c')
+map.delete('c') // { a:4, b:2 }
 
 // Size - O(1)
 const size = map.size // 2
@@ -34,7 +34,7 @@ const values = Array.from(map.values()) // [4, 2]
 const entries = Array.from(map.entries()) // [['a', 4], ['b', 2]]
 
 // Clear
-map.clear()
+map.clear() // {}
 
 // Traversal
 for (const [key, value] of map) {
