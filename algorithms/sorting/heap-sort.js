@@ -5,6 +5,7 @@
  * Space Complexity: O(1)
  *
  * @param {number[]} arr
+ * @returns {void}
  */
 function heapSort(arr) {
   function heapify(n, i) {
