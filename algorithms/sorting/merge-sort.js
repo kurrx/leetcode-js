@@ -12,6 +12,7 @@ function mergeSort(arr) {
    * @param {number} left
    * @param {number} mid
    * @param {number} right
+   * @returns {void}
    */
   function merge(left, mid, right) {
     const n1 = mid - left + 1,
@@ -38,6 +39,7 @@ function mergeSort(arr) {
   /**
    * @param {number} left
    * @param {number} right
+   * @returns {void}
    */
   function sort(left, right) {
     if (left >= right) return
@@ -46,5 +48,5 @@ function mergeSort(arr) {
     sort(mid + 1, right)
     merge(left, mid, right)
   }
-  return sort(0, arr.length - 1)
+  sort(0, arr.length - 1)
 }

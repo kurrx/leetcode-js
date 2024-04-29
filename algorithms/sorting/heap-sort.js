@@ -8,6 +8,11 @@
  * @returns {void}
  */
 function heapSort(arr) {
+  /**
+   * @param {number} n
+   * @param {number} i
+   * @returns {void}
+   */
   function heapify(n, i) {
     let largest = i,
       left = 2 * i + 1,
