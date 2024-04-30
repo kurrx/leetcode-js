@@ -93,7 +93,7 @@ class BinarySearchTree {
           successor = successor.left
         }
         node.value = successor.value
-        node.right = this._delete(node.right, successor.value)
+        node.right = DELETE(node.right, successor.value)
       }
       return node
     }
