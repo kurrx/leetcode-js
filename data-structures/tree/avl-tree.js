@@ -247,21 +247,3 @@ class AVLTree {
     return `[${arr.join(',')}]`
   }
 }
-
-const avl = new AVLTree()
-avl.add(1)
-avl.add(2)
-avl.add(3)
-avl.add(4)
-avl.add(5)
-console.log(avl.toString())
-avl.delete(3)
-console.log('Del 3', avl.toString())
-avl.delete(2)
-console.log('Del 2', avl.toString())
-avl.delete(1)
-console.log('Del 1', avl.toString())
-avl.delete(4)
-console.log('Del 4', avl.toString())
-avl.delete(5)
-console.log('Del 5', avl.toString())
