@@ -203,3 +203,27 @@ class SinglyLinkedList {
     return str
   }
 }
+
+// Examples
+const list = new DoublyLinkedList()
+console.log(`Push 1: ${list.push(1)} -> ${list.toString()}`)
+console.log(`Push 2: ${list.push(2)} -> ${list.toString()}`)
+console.log(`Push 3: ${list.push(3)} -> ${list.toString()}`)
+console.log(`Push 4: ${list.push(4)} -> ${list.toString()}`)
+console.log(`Pop: ${list.pop()} -> ${list.toString()}`)
+console.log(`Unshift 0: ${list.unshift(0)} -> ${list.toString()}`)
+console.log(`Shift: ${list.shift()} -> ${list.toString()}`)
+console.log(`Insert at 1 -> 2: ${list.insert(1, 2)} -> ${list.toString()}`)
+console.log(`Insert at 3 -> 3: ${list.insert(3, 3)} -> ${list.toString()}`)
+console.log(`Insert at 10 -> 10: ${list.insert(10, 10)} -> ${list.toString()}`)
+console.log(`At 3: ${list.at(3)}`)
+console.log(`At 10: ${list.at(10)}`)
+list.set(3, 2)
+console.log(`Set at 3 -> 2: ${list.toString()}`)
+list.set(10, 2)
+console.log(`Set at 10 -> 2: ${list.toString()}`)
+console.log(`Find 2: ${list.find(2)}`)
+console.log(`Find 3: ${list.find(3)}`)
+console.log(`Find 10: ${list.find(10)}`)
+list.clear()
+console.log(`Clear: ${list.toString()}`)
