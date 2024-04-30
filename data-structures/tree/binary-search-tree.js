@@ -45,7 +45,7 @@ class BinarySearchTree {
    * Returns count of `value`, if doesn't exists returns 0
    *
    * Time Complexity: O(log n)
-   * Space Complexity: O(h)
+   * Space Complexity: O(log n)
    *
    * @param {number} value
    * @returns {number}
@@ -53,6 +53,13 @@ class BinarySearchTree {
   get(value) {
     return this._get(this.root, value)
   }
+
+  /**
+   * @private
+   * @param {TreeNode} node
+   * @param {number} value
+   * @returns {number}
+   */
   _get(node, value) {
     if (!node) return 0
     let answer
@@ -70,7 +77,7 @@ class BinarySearchTree {
    * Adds value to the tree, returns new size of tree
    *
    * Time Complexity: O(log n)
-   * Space Complexity: O(h)
+   * Space Complexity: O(log n)
    *
    * @param {number} value
    * @returns {number}
@@ -80,6 +87,13 @@ class BinarySearchTree {
     this.size++
     return this.size
   }
+
+  /**
+   * @private
+   * @param {TreeNode} node
+   * @param {number} value
+   * @returns {number}
+   */
   _add(node, value) {
     if (!node) return new TreeNode(value)
     if (value === node.value) {
@@ -94,19 +108,32 @@ class BinarySearchTree {
 
   /**
    * Deletes value from the tree, if count of value is greater than 1, then count just decrements
+   * Returns new size of tree
    *
    * Time Complexity: O(log n)
-   * Space Complexity: O(h)
+   * Space Complexity: O(log n)
    *
    * @param {number} value
    * @returns {number}
    */
   delete(value) {
-    this.root = this._delete(this.root, value)
+    const found = { value: false }
+    this.root = this._delete(this.root, value, found)
+    if (found.value) this.size--
+    return this.size
   }
-  _delete(node, value) {
+
+  /**
+   * @private
+   * @param {TreeNode} node
+   * @param {number} value
+   * @param {{ value: boolean }} found
+   * @returns {number}
+   */
+  _delete(node, value, found) {
     if (!node) return null
     if (value === node.value) {
+      found.value = true
       if (node.count - 1 > 0) {
         node.decrement()
         return node
@@ -138,15 +165,22 @@ class BinarySearchTree {
    * @returns {string}
    */
   toString() {
-    return this._toString(this.root, [])
+    return `[${this._toString(this.root).join(',')}]`
   }
-  _toString(node, array) {
-    if (!node) return
+
+  /**
+   * @private
+   * @param {TreeNode} node
+   * @param {number[]} array
+   * @returns {number[]}
+   */
+  _toString(node, array = []) {
+    if (!node) return array
     this._toString(node.left, array)
     for (let i = 0; i < node.count; i++) {
       array.push(node.value)
     }
     this._toString(node.right, array)
-    return `[${array.join(',')}]`
+    return array
   }
 }
