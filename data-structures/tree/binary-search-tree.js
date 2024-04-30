@@ -78,12 +78,12 @@ class BinarySearchTree {
      * @param {TreeNode} node
      * @returns {TreeNode}
      */
-    function DELETE(node) {
+    function DELETE(node, value) {
       if (!node) return node
       if (value < node.value) {
-        node.left = DELETE(node.left)
+        node.left = DELETE(node.left, value)
       } else if (value > node.value) {
-        node.right = DELETE(node.right)
+        node.right = DELETE(node.right, value)
       } else {
         if (!node.left && !node.right) return null
         if (!node.left) return node.right
@@ -97,7 +97,7 @@ class BinarySearchTree {
       }
       return node
     }
-    this.root = DELETE(this.root)
+    this.root = DELETE(this.root, value)
   }
 
   /**
