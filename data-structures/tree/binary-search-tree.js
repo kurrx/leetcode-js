@@ -165,7 +165,7 @@ class BinarySearchTree {
    * @returns {string}
    */
   toString() {
-    return `[${this._toString(this.root).join(',')}]`
+    return `[${this.inOrder(this.root).join(',')}]`
   }
 
   /**
@@ -174,13 +174,13 @@ class BinarySearchTree {
    * @param {number[]} array
    * @returns {number[]}
    */
-  _toString(node, array = []) {
+  inOrder(node, array = []) {
     if (!node) return array
-    this._toString(node.left, array)
+    this.inOrder(node.left, array)
     for (let i = 0; i < node.count; i++) {
       array.push(node.value)
     }
-    this._toString(node.right, array)
+    this.inOrder(node.right, array)
     return array
   }
 }
