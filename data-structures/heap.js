@@ -1,25 +1,39 @@
-/**
- * Min/Max Heap Implementation
- *
- * @template T
- */
 class Heap {
   /**
-   * @param {T[]} arr
-   * @param {(a: T, b: T) => number} comparator
+   * @param {(a: number, b: number) => number} comparator
    */
-  constructor(arr = [], comparator = (a, b) => a - b) {
-    this.heap = [...arr]
+  constructor(comparator = (a, b) => a - b) {
+    this.heap = []
     this.comparator = comparator
-    for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
-      this.heapifyDown(i)
+  }
+
+  /**
+   * Creates heap from given arr
+   *
+   * @param {number[]} arr
+   * @param {(a: number, b: number) => number} comparator
+   */
+  static from(arr, comparator = (a, b) => a - b) {
+    const heap = new Heap(comparator)
+    heap.heap = [...arr]
+    for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) {
+      heapifyDown(i)
     }
+  }
+
+  /**
+   * Returns heap size
+   *
+   * @returns {number}
+   */
+  get size() {
+    return this.heap.length
   }
 
   /**
    * Pushes new element to heap
    *
-   * @param {T} value
+   * @param {number} value
    * @returns {void}
    */
   push(value) {
@@ -39,7 +53,7 @@ class Heap {
   /**
    * Pops min element from heap
    *
-   * @returns {T | undefined}
+   * @returns {number | undefined}
    */
   pop() {
     if (this.isEmpty()) return undefined
@@ -52,19 +66,10 @@ class Heap {
   /**
    * Returns heap top value
    *
-   * @returns {T}
+   * @returns {number | undefined}
    */
   peek() {
     return this.heap[0]
-  }
-
-  /**
-   * Returns heap size
-   *
-   * @returns {number}
-   */
-  size() {
-    return this.heap.length
   }
 
   /**
@@ -73,7 +78,7 @@ class Heap {
    * @returns {boolean}
    */
   isEmpty() {
-    return this.size() === 0
+    return this.size === 0
   }
 
   /**
