@@ -8,22 +8,6 @@
  * @returns {number}
  */
 function primMST(matrix) {
-  /**
-   * @param {number[]} keys
-   * @param {boolean[]} mstSet
-   * @returns {number}
-   */
-  function minKey(keys, mstSet) {
-    let min = Number.MAX_SAFE_INTEGER,
-      minIndex = -1
-    for (let i = 0; i < n; i++) {
-      if (!mstSet[i] && keys[i] < min) {
-        min = keys[i]
-        minIndex = i
-      }
-    }
-    return minIndex
-  }
   const n = matrix.length,
     parent = new Array(n),
     keys = new Array(n),
