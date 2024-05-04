@@ -1,6 +1,9 @@
 /**
  * Find k-th smallest element in the array (Quick Select)
  *
+ * Time Complexity: O(n^2) in worst case, O(n) average
+ * Space Complexity: O(log n)
+ *
  * @param {number[]} arr
  * @param {number} k
  * @returns {number}
