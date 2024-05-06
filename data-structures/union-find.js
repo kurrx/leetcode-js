@@ -31,9 +31,15 @@ class UnionFind {
     return root
   }
 
+  /**
+   * @param {number} A
+   * @param {number} B
+   * @returns {boolean}
+   */
   union(A, B) {
     const rootA = this.find(A),
       rootB = this.find(B)
+    if (rootA === -1 || rootB === -1) return false
     if (rootA === rootB) return false
     if (this.rank[rootA] < this.rank[rootB]) {
       this.parent[rootA] = rootB
