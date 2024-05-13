@@ -1,37 +1,49 @@
+class UnionFind {
+  constructor(size) {
+    this.parent = []
+    this.rank = []
+    this.size = size
+    for (let i = 0; i < size; i++) {
+      this.parent.push(i)
+      this.rank.push(1)
+    }
+  }
+
+  find(A) {
+    // Search
+    let root = A
+    while (this.parent[root] !== root) root = this.parent[root]
+    // Compress Path
+    let temp
+    while (A !== root) {
+      temp = this.parent[A]
+      this.parent[A] = root
+      A = temp
+    }
+    return root
+  }
+
+  union(A, B) {
+    let rootA = this.find(A),
+      rootB = this.find(B)
+    if (rootA === rootB) return
+    if (this.rank[rootA] < this.rank[rootB]) {
+      this.parent[rootA] = rootB
+      this.rank[rootB] += this.rank[rootA]
+    } else {
+      this.parent[rootB] = rootA
+      this.rank[rootA] += this.rank[rootB]
+    }
+    this.size--
+  }
+}
 /**
  * @param {number} n
  * @param {number[][]} edges
  * @return {number}
  */
 function countComponents(n, edges) {
-  // Build Graph
-  const graph = []
-  for (let i = 0; i < n; i++) graph.push([])
-  for (const [a, b] of edges) {
-    graph[a].push(b)
-    graph[b].push(a)
-  }
-  // BFS On Each node
-  const visited = new Set(),
-    queue = []
-  let components = 0
-  for (let i = 0; i < n; i++) {
-    if (visited.has(i)) continue
-    queue.push(i)
-    visited.add(i)
-    while (queue.length) {
-      const length = queue.length
-      for (let j = 0; j < length; j++) {
-        const node = queue.shift()
-        for (const nei of graph[node]) {
-          if (!visited.has(nei)) {
-            queue.push(nei)
-            visited.add(nei)
-          }
-        }
-      }
-    }
-    components++
-  }
-  return components
+  const set = new UnionFind(n)
+  for (const [a, b] of edges) set.union(a, b)
+  return set.size
 }
