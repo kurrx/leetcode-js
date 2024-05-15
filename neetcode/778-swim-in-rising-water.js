@@ -9,48 +9,64 @@ const DIRS = [
  * @return {number}
  */
 function swimInWater(grid) {
-  function canReach(t) {
-    function canVisit(t, r, c, id) {
-      return (
-        r >= 0 &&
-        r < n &&
-        c >= 0 &&
-        c < n &&
-        !visited.has(id) &&
-        grid[r][c] <= t
-      )
-    }
-    if (grid[0][0] > t) return false
-    const visited = new Set([0]),
-      queue = [[0, 0]]
-    while (queue.length) {
-      const length = queue.length
-      for (let i = 0; i < length; i++) {
-        const [r, c] = queue.shift()
-        for (const [dy, dx] of DIRS) {
-          const nextR = r + dy,
-            nextC = c + dx,
-            nextId = nextR * n + nextC
-          if (canVisit(t, nextR, nextC, nextId)) {
-            if (nextR === n - 1 && nextC === n - 1) return true
-            visited.add(nextId)
-            queue.push([nextR, nextC])
-          }
-        }
+  // Heap Utils
+  function swap(i, j) {
+    const temp = heap[i]
+    heap[i] = heap[j]
+    heap[j] = temp
+  }
+  function lt(i, j) {
+    return heap[i][0] < heap[j][0]
+  }
+  function push(val) {
+    heap.push(val)
+    let curr = heap.length - 1
+    while (curr > 0) {
+      const parent = Math.floor((curr - 1) / 2)
+      if (lt(curr, parent)) {
+        swap(curr, parent)
+        curr = parent
+      } else {
+        break
       }
     }
-    return false
+  }
+  function pop() {
+    swap(0, heap.length - 1)
+    const top = heap.pop()
+    let curr = 0
+    while (2 * curr + 1 < heap.length) {
+      const left = 2 * curr + 1,
+        right = 2 * curr + 2,
+        top = right < heap.length && lt(right, left) ? right : left
+      if (lt(top, curr)) {
+        swap(top, curr)
+        curr = top
+      } else {
+        break
+      }
+    }
+    return top
+  }
+  function canVisit(r, c, id) {
+    return r >= 0 && r < n && c >= 0 && c < n && !visited.has(id)
   }
 
-  const n = grid.length
-  if (n === 1) return grid[0][0]
-
-  let left = 0,
-    right = n * n - 1
-  while (left <= right) {
-    const t = Math.floor((left + right) / 2)
-    if (canReach(t)) right = t - 1
-    else left = t + 1
+  const n = grid.length,
+    visited = new Set([0]),
+    heap = [[grid[0][0], 0, 0]]
+  while (heap.length) {
+    const [minMaxHeight, r, c] = pop()
+    if (r === n - 1 && c === n - 1) return minMaxHeight
+    for (const [dy, dx] of DIRS) {
+      const nextR = r + dy,
+        nextC = c + dx,
+        nextId = nextR * n + nextC
+      if (canVisit(nextR, nextC, nextId)) {
+        visited.add(nextId)
+        push([Math.max(minMaxHeight, grid[nextR][nextC]), nextR, nextC])
+      }
+    }
   }
-  return left
+  return n * n
 }
