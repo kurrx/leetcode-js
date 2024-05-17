@@ -3,19 +3,28 @@
  * @return {number}
  */
 function trap(height) {
-  const n = height.length,
-    stack = []
-  let answer = 0,
-    top
-  for (let i = 0; i < n; i++) {
-    while (stack.length && height[i] > height[stack.at(-1)]) {
-      top = stack.pop()
-      if (!stack.length) break
-      answer +=
-        (i - stack.at(-1) - 1) *
-        (Math.min(height[i], height[stack.at(-1)]) - height[top])
+  const n = height.length
+  let leftMax = 0,
+    left = 0,
+    rightMax = 0,
+    right = n - 1,
+    answer = 0
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= leftMax) {
+        leftMax = height[left]
+      } else {
+        answer += leftMax - height[left]
+      }
+      left++
+    } else {
+      if (height[right] >= rightMax) {
+        rightMax = height[right]
+      } else {
+        answer += rightMax - height[right]
+      }
+      right--
     }
-    stack.push(i)
   }
   return answer
 }
