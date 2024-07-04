@@ -3,16 +3,13 @@
  * @return {string}
  */
 function destCity(paths) {
-  const outDegree = new Map()
-  for (const [from, to] of paths) {
-    if (!outDegree.has(to)) {
-      outDegree.set(to, 0)
-    }
-    outDegree.set(from, (outDegree.get(from) ?? 0) + 1)
+  const hasOut = new Set()
+  for (let i = 0; i < paths.length; i++) {
+    hasOut.add(paths[i][0])
   }
-  for (const [city, out] of outDegree) {
-    if (out === 0) {
-      return city
+  for (let i = 0; i < paths.length; i++) {
+    if (!hasOut.has(paths[i][1])) {
+      return paths[i][1]
     }
   }
   return null
