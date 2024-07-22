@@ -3,16 +3,11 @@
  * @return {number}
  */
 function totalMoney(n) {
+  const rem = n % 7
   const weeks = Math.floor(n / 7)
-  const F = 28,
-    L = 28 + (weeks - 1) * 7
-  const arithmeticSum = (weeks * (F + L)) / 2
-
-  const monday = 1 + weeks
-  let finalWeek = 0
-  for (let day = 0; day < n % 7; day++) {
-    finalWeek += monday + day
-  }
-
-  return arithmeticSum + finalWeek
+  return (
+    weeks * 28 +
+    7 * (((weeks - 1) * weeks) / 2) +
+    ((rem * (rem + 1)) / 2 + weeks * rem)
+  )
 }
